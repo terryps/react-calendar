@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import WebFont from 'webfontloader';
-import DateController from "../date-controller/DateController";
+import { GlobalStyle } from "../../styles/fonts/fonts";
+import Navigation from "../navigation/Navigation";
 import MonthView from "../month-view/MonthView"
-import TodoListTemplate from "../todo-list-template/TodoListTemplate";
+import TodoItemList from "../todo-list-template/TodoItemList";
 
 
 export default class Calendar extends Component {
@@ -11,13 +12,20 @@ export default class Calendar extends Component {
         this.state = {
             id: 3,
             input: '',
-            currYear: new Date().getFullYear(),
-            currMonth: new Date().getMonth(),
-            currDate: new Date().getDate(),
+            today: new Date(),
+            viewDate: {
+                year: new Date().getFullYear(),
+                month: new Date().getMonth(),
+            },
+            selectedDate: {
+                year: new Date().getFullYear(),
+                month: new Date().getMonth(),
+                day: new Date().getDate(),
+            },
             todos: [
-                { id: 0, text: 'waking up at 6 a.m', check: true },
-                { id: 1, text: 'styling todo list item', check: false },
-                { id: 2, text: 'studying react', check: false },
+                { id: 0, date: [], text: 'waking up at 6 a.m', checked: true },
+                { id: 1, date: [], text: 'styling todo list item', checked: false },
+                { id: 2, date: [], text: 'studying react', checked: false },
             ],
         };
     }
@@ -25,14 +33,8 @@ export default class Calendar extends Component {
     componentDidMount() {
         WebFont.load({
             google: {
-                families: ['Fugaz One', 'Roboto']
+                families: ['Roboto', 'Noto Sans KR:300', 'Exo:900',]
             }
-        });
-    }
-
-    changeInput = (e) => {
-        this.setState({
-            input: e.target.value
         });
     }
 
@@ -48,42 +50,70 @@ export default class Calendar extends Component {
         });
     }
 
-    handleIncrease = () => {
-        const { currYear, currMonth } = this.state;
+    setViewDate = (nextViewDate) => {
+        // check whether currDate can be prevDate
+        const { viewDate } = this.state;
         this.setState({
-            currYear: (currMonth === 11) ?
-                currYear + 1 : currYear,
-            currMonth: (currMonth === 11) ?
-                0 : currMonth + 1,
-        })
+            viewDate: {
+                ...viewDate,
+                year: nextViewDate.year,
+                month: nextViewDate.month,
+            }
+        });
     }
 
-    handleDecrease = () => {
-        const { currYear, currMonth } = this.state;
+    handleToggle = (id) => {
+        const { todos } = this.state;
+
+        const index = todos.findIndex(todo => todo.id === id);
+        const selected = todos[index];
+
+        // copy an array
+        const nextTodos = [...todos];
+
+        nextTodos[index] = {
+            ...selected,
+            checked: !selected.checked,
+        };
+
         this.setState({
-            currYear: (currMonth === 0)?
-                currYear - 1 : currYear,
-            currMonth: (currMonth === 0) ?
-                11 : currMonth - 1,
-        })
+            todos: nextTodos
+        });
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            input: e.target.value
+        });
+    }
+
+    handleCreate = () => {
+        const { input, todos } = this.state;
+    }
+
+    handleKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            this.handleCreate();
+        }
     }
 
     render() {
 
         return (
-            <div style={{fontFamily: 'Fugaz One'}}>
-                <DateController
-                    y={this.state.currYear}
-                    m={this.state.currMonth}
-                    handleIncrease={this.handleIncrease}
-                    handleDecrease={this.handleDecrease}
+            <div>
+                <GlobalStyle />
+                <Navigation
+                    viewDate={this.state.viewDate}
+                    setViewDate={this.setViewDate}
                 />
                 <MonthView
-                    y={this.state.currYear}
-                    m={this.state.currMonth}
+                    viewDate={this.state.viewDate}
                 />
-                <TodoListTemplate
-                    onChange={this.changeInput}
+                <TodoItemList
+                    todos={this.state.todos}
+                    onToggle={this.handleToggle}
+                    onChange={this.handleChange}
+                    onKeyPress={this.handleKeyPress}
                 />
             </div>
         );
