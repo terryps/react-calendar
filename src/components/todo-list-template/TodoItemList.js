@@ -24,37 +24,41 @@ const TodoItemList = (props) => {
     );
 
     return (
-        <TodoWrapper>
+        <Div>
             <Title>
                 <b>Todos</b>
             </Title>
             <div>
                 { todoList }
-                <Input
+                <input
                     value={value}
                     onChange={onChange}
                     onKeyPress={onCreate}
                 />
             </div>
-        </TodoWrapper>
+        </Div>
     );
 }
 
 export default TodoItemList;
 
-const TodoWrapper = styled.div``;
+const Div = styled.div`
+    align-self: flex-start;
+    grid-row: 2/3;
+    padding: 0 1rem;
+    
+    input {
+        margin: 0.9em 0 0;
+        padding: 0;
+        height: 2em;
+        border: none;
+        outline: none;
+        background-color: #ddd;
+    }
+`;
 
 const Title = styled.div`
     margin: 0;
-    padding-bottom: 0.5em;
+    padding-block: 0 1em;
     border-bottom: .05em solid #000;
-`;
-
-const Input = styled.input`
-    margin: 0.9em 0 0;
-    padding: 0;
-    height: 2em;
-    border: none;
-    outline: none;
-    background-color: #ddd;
 `;

@@ -60,7 +60,7 @@ const MonthView = (props) => {
     })();
 
     return (
-        <div>
+        <Div>
             <Table>
                 <tbody>
                 {
@@ -72,12 +72,15 @@ const MonthView = (props) => {
                 }
                 </tbody>
             </Table>
-        </div>
+        </Div>
     );
 }
 
 export default MonthView;
 
+const Div = styled.div`
+    grid-row: 2/3;
+`;
 const Table = styled.table`
     border-collapse: collapse;
     border: .1em solid #000;

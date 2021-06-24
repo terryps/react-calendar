@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export default class TodoItem extends Component {
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return this.props.todos !== nextProps.todos;
+        return this.props.checked !== nextProps.checked;
     }
 
     render() {
@@ -23,9 +23,9 @@ export default class TodoItem extends Component {
                      checked={checked}
                      onClick={() => onToggle(id)}
                 >
-                    <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
-                    </Svg>
+                    </svg>
                 </CheckBox>
                 <Text>{text}</Text>
                 <RemoveButton className="remove"
@@ -38,17 +38,7 @@ export default class TodoItem extends Component {
 const Div = styled.div`
     display: flex;
     position: relative;
-    margin: 0.75em 0 0;
-`;
-
-const Svg = styled.svg`
-    display: block;
-    position: absolute;
-    top: calc(50% - 0.5em);
-    left: 0.35em;
-    max-inline-size: 0.8em;
-    max-block-size: 0.95em;
-    visibility: hidden;
+    margin: 0.75rem 0 0;
 `;
 
 const CheckBox = styled.div`
@@ -60,6 +50,14 @@ const CheckBox = styled.div`
     inline-size: 0.5em;
     
     svg {
+        display: block;
+        position: absolute;
+        top: calc(50% - 0.5em);
+        left: 0.35em;
+        max-inline-size: 0.8em;
+        max-block-size: 0.95em;
+        visibility: hidden;
+        
         ${props => props.checked && `
             visibility: visible;
         `}

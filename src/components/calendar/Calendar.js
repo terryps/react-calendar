@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import WebFont from 'webfontloader';
-import { GlobalStyle } from "../../styles/fonts/fonts";
+import styled from 'styled-components';
 import Navigation from "../navigation/Navigation";
 import MonthView from "../month-view/MonthView"
 import TodoItemList from "../todo-list-template/TodoItemList";
@@ -28,14 +27,6 @@ export default class Calendar extends Component {
                 { id: 2, date: [], text: 'studying react', checked: false },
             ],
         };
-    }
-
-    componentDidMount() {
-        WebFont.load({
-            google: {
-                families: ['Roboto', 'Noto Sans KR:300', 'Exo:900',]
-            }
-        });
     }
 
     createTodoItem = () => {
@@ -100,8 +91,7 @@ export default class Calendar extends Component {
     render() {
 
         return (
-            <div>
-                <GlobalStyle />
+            <Container>
                 <Navigation
                     viewDate={this.state.viewDate}
                     setViewDate={this.setViewDate}
@@ -115,7 +105,22 @@ export default class Calendar extends Component {
                     onChange={this.handleChange}
                     onKeyPress={this.handleKeyPress}
                 />
-            </div>
+            </Container>
         );
     }
 }
+
+const Container = styled.div`
+    display: grid;
+    align-content: start;
+    grid-auto-rows: minmax(20%, auto);
+    
+    min-block-size: 100vh;
+    
+    margin-inline: auto;
+    inline-size: 90%;
+    max-inline-size: 60rem;
+    
+    align-items: center;
+    justify-items: center;
+`;

@@ -72,6 +72,8 @@ const Navigation = (props) => {
 export default Navigation;
 
 const Nav = styled.div`
+    grid-column: 1/2;
+    
     font-family: 'Exo';
     font-style: italic;
     font-weight: 900;
