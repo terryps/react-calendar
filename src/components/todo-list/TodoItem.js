@@ -21,7 +21,7 @@ export default class TodoItem extends Component {
                 <CheckBox
                      id={id}
                      checked={checked}
-                     onClick={() => onToggle(id)}
+                     onClick={() => {onToggle(id)}}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/>
@@ -47,7 +47,7 @@ const CheckBox = styled.div`
     padding: 0.2em;
     border: 0.1em solid #000;
     block-size: 0.5em;
-    inline-size: 0.5em;
+    min-inline-size: 0.5em;
     
     svg {
         display: block;
@@ -65,6 +65,7 @@ const CheckBox = styled.div`
 `;
 
 const Text = styled.div`
+    word-break: break-all;
     line-height: 1.5;
 `;
 

@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Navigation from "../navigation/Navigation";
 import MonthView from "../month-view/MonthView"
-import TodoItemList from "../todo-list-template/TodoItemList";
-
+import TodoItemList from "../todo-list/TodoItemList";
+import { areObjectsEqual } from "../../shared/utils"
 
 export default class Calendar extends Component {
     constructor(props) {
         super(props);
+        this.id = 3;
+
         this.state = {
-            id: 3,
             input: '',
             today: new Date(),
             viewDate: {
@@ -22,9 +23,9 @@ export default class Calendar extends Component {
                 day: new Date().getDate(),
             },
             todos: [
-                { id: 0, date: [], text: 'waking up at 6 a.m', checked: true },
-                { id: 1, date: [], text: 'styling todo list item', checked: false },
-                { id: 2, date: [], text: 'studying react', checked: false },
+                { id: 0, date: {year: 2021, month: 5, day: 24}, text: 'waking up at 6 a.m', checked: true },
+                { id: 1, date: {year: 2021, month: 5, day: 26}, text: 'styling todo list item', checked: false },
+                { id: 2, date: {year: 2021, month: 5, day: 25}, text: 'studying react', checked: false },
             ],
         };
     }
@@ -49,6 +50,17 @@ export default class Calendar extends Component {
                 ...viewDate,
                 year: nextViewDate.year,
                 month: nextViewDate.month,
+            }
+        });
+    }
+
+    onTileClick = (day) => {
+        const { viewDate } = this.state;
+        this.setState({
+            selectedDate: {
+                year: viewDate.year,
+                month: viewDate.month,
+                day: day,
             }
         });
     }
@@ -79,7 +91,16 @@ export default class Calendar extends Component {
     }
 
     handleCreate = () => {
-        const { input, todos } = this.state;
+        const { input, selectedDate, todos } = this.state;
+        this.setState({
+            input: '',
+            todos: todos.concat({
+                id: this.id++,
+                date: selectedDate,
+                text: input,
+                checked: false,
+            }),
+        });
     }
 
     handleKeyPress = (e) => {
@@ -89,7 +110,6 @@ export default class Calendar extends Component {
     }
 
     render() {
-
         return (
             <Container>
                 <Navigation
@@ -98,9 +118,13 @@ export default class Calendar extends Component {
                 />
                 <MonthView
                     viewDate={this.state.viewDate}
+                    todos={this.state.todos}
+                    onClick={this.onTileClick}
                 />
                 <TodoItemList
-                    todos={this.state.todos}
+                    todos={this.state.todos.filter((todo) =>
+                        areObjectsEqual(todo.date, this.state.selectedDate))}
+                    value={this.state.input}
                     onToggle={this.handleToggle}
                     onChange={this.handleChange}
                     onKeyPress={this.handleKeyPress}

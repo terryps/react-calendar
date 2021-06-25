@@ -1,87 +1,107 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-import Day from './Day';
+import DayTile from './DayTile';
 
-const MonthView = (props) => {
-    const {
-        viewDate
-    } = props;
+export default class MonthView extends Component {
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return this.props.todos !== nextProps.todos;
+    }
 
-    const daysInMonth = (() => {
-        const y = viewDate.year;
-        const m = viewDate.month;
+    render() {
+        const {
+            viewDate,
+            todos,
+            onClick,
+        } = this.props;
 
-        const firstDayOfMonth = new Date(y, m, 1).getDay();
-        const lastDayOfMonth = new Date(y, m + 1, 0).getDay();
-        const lastDateOfMonth = new Date(y, m + 1, 0).getDate();
+        const daysInMonth = (() => {
+            const y = viewDate.year;
+            const m = viewDate.month;
 
-        let daysInWeek = [];
-        let daysInMonth = [];
+            const firstDayOfMonth = new Date(y, m, 1).getDay();
+            const lastDayOfMonth = new Date(y, m + 1, 0).getDay();
+            const lastDateOfMonth = new Date(y, m + 1, 0).getDate();
 
-        // push dates in last month
-        if(firstDayOfMonth !== 0) {
-            const lastDateOfPrevMonth = new Date(y, m, 0).getDate();
-            const k = lastDateOfPrevMonth - firstDayOfMonth + 1;
+            let daysInWeek = [];
+            let daysInMonth = [];
 
-            for(let i = 0; i < firstDayOfMonth; i++) {
-                daysInWeek.push(
-                    k + i
-                );
+            // push dates in last month
+            if(firstDayOfMonth !== 0) {
+                const lastDateOfPrevMonth = new Date(y, m, 0).getDate();
+                const k = lastDateOfPrevMonth - firstDayOfMonth + 1;
+
+                for(let i = 0; i < firstDayOfMonth; i++) {
+                    daysInWeek.push(
+                        {month: m - 1, day: k + i}
+                    );
+                }
             }
-        }
 
-        // push dates in current month
-        for(let i = 0; i < lastDateOfMonth; i++) {
-            daysInWeek.push(
-                i + 1
-            );
-            if((firstDayOfMonth + i) % 7 === 6) {
+            // push dates in current month
+            for(let i = 0; i < lastDateOfMonth; i++) {
+                daysInWeek.push(
+                    {month: m, day: i + 1}
+                );
+                if((firstDayOfMonth + i) % 7 === 6) {
+                    daysInMonth.push(
+                        daysInWeek
+                    );
+                    daysInWeek = [];
+                }
+            }
+
+            // push dates in next month
+            if(lastDayOfMonth !== 6) {
+                let k = 1;
+                for(let i = lastDayOfMonth + 1; i < 7; i++) {
+                    daysInWeek.push(
+                        {month: m + 1, day: k++}
+                    );
+                }
                 daysInMonth.push(
                     daysInWeek
                 );
-                daysInWeek = [];
             }
-        }
 
-        // push dates in next month
-        if(lastDayOfMonth !== 6) {
-            let k = 1;
-            for(let i = lastDayOfMonth + 1; i < 7; i++) {
-                daysInWeek.push(
-                    k++
-                );
-            }
-            daysInMonth.push(
-                daysInWeek
-            );
-        }
+            return daysInMonth;
+        })();
 
-        return daysInMonth;
-    })();
 
-    return (
-        <Div>
-            <Table>
-                <tbody>
+        const a = (() => {
+            let todosInView = [];
+            todosInView = todos.filter((todo) =>
                 {
-                    daysInMonth.map(week =>
-                        <tr>
-                            { week.map(day => <Day date={day}/>) }
-                        </tr>
-                    )
-                }
-                </tbody>
-            </Table>
-        </Div>
-    );
-}
 
-export default MonthView;
+                }
+            );
+        })();
+
+        const dayTiles = daysInMonth.map(week =>
+            <tr>
+                {week.map(date =>
+                    // <DayTile day{date.day}></DayTile>
+                    // <DayTile day={day} onClick={onClick}></DayTile>
+                {})}
+            </tr>
+        );
+
+        return (
+            <Div>
+                <table>
+                    <tbody>
+                    { dayTiles }
+                    </tbody>
+                </table>
+            </Div>
+        );
+    }
+}
 
 const Div = styled.div`
     grid-row: 2/3;
-`;
-const Table = styled.table`
-    border-collapse: collapse;
-    border: .1em solid #000;
+    
+    table {
+        border-collapse: collapse;
+        border: .1em solid #000;
+    }
 `;

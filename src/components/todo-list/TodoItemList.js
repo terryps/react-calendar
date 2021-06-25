@@ -5,11 +5,11 @@ import TodoItem from "./TodoItem";
 const TodoItemList = (props) => {
     const {
         todos,
+        value,
         onToggle,
         onRemove,
-        value,
         onChange,
-        onCreate,
+        onKeyPress,
     } = props;
 
     const todoList = todos.map(
@@ -25,6 +25,7 @@ const TodoItemList = (props) => {
 
     return (
         <Div>
+            { console.log('TodoItemList') }
             <Title>
                 <b>Todos</b>
             </Title>
@@ -33,7 +34,7 @@ const TodoItemList = (props) => {
                 <input
                     value={value}
                     onChange={onChange}
-                    onKeyPress={onCreate}
+                    onKeyPress={onKeyPress}
                 />
             </div>
         </Div>
@@ -46,6 +47,8 @@ const Div = styled.div`
     align-self: flex-start;
     grid-row: 2/3;
     padding: 0 1rem;
+    
+    max-inline-size: 10em;
     
     input {
         margin: 0.9em 0 0;
