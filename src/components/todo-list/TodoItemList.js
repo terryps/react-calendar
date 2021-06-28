@@ -1,63 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import TodoItem from "./TodoItem";
 
-const TodoItemList = (props) => {
-    const {
-        todos,
-        value,
-        onToggle,
-        onRemove,
-        onChange,
-        onKeyPress,
-    } = props;
+export default class TodoItemList extends Component {
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        const len1 = this.props.todos.length;
+        const len2 = nextProps.todos.length;
+        if(len1 !== len2) {
+            return true;
+        }
 
-    const todoList = todos.map(
-        (todo) => (
-            <TodoItem
-                {...todo}
-                onToggle={onToggle}
-                onRemove={onRemove}
-                key={todo.id}
-            />
-        )
-    );
+        if(len1 && this.props.todos.every((todo, index) =>
+            todo.text.localeCompare(nextProps.todos[index].text))) {
+            return true;
+        }
 
-    return (
-        <Div>
-            { console.log('TodoItemList') }
-            <Title>
-                <b>Todos</b>
-            </Title>
-            <div>
-                { todoList }
-                <input
-                    value={value}
-                    onChange={onChange}
-                    onKeyPress={onKeyPress}
+        return false;
+    }
+
+    render() {
+        const {
+            todos,
+            onToggle,
+            onRemove,
+        } = this.props;
+
+        const todoList = todos.map(
+            (todo) => (
+                <TodoItem
+                    {...todo}
+                    onToggle={onToggle}
+                    onRemove={onRemove}
+                    key={todo.id}
                 />
-            </div>
-        </Div>
-    );
+            )
+        );
+
+        return (
+            <Div>
+                <Title>
+                    <b>Todos</b>
+                </Title>
+                <div>
+                    { todoList }
+                </div>
+            </Div>
+        );
+    }
 }
 
-export default TodoItemList;
-
 const Div = styled.div`
-    align-self: flex-start;
-    grid-row: 2/3;
-    padding: 0 1rem;
-    
     max-inline-size: 10em;
-    
-    input {
-        margin: 0.9em 0 0;
-        padding: 0;
-        height: 2em;
-        border: none;
-        outline: none;
-        background-color: #ddd;
-    }
 `;
 
 const Title = styled.div`

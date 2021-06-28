@@ -2,66 +2,41 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Navigation from "../navigation/Navigation";
 import MonthView from "../month-view/MonthView"
-import TodoItemList from "../todo-list/TodoItemList";
-import { areObjectsEqual } from "../../shared/utils"
+import TodoListTemplate from "../todo-list/TodoListTemplate";
+import { dateToNum } from "../../shared/utils";
 
 export default class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.id = 3;
+        this.id = 6;
 
         this.state = {
             input: '',
-            today: new Date(),
-            viewDate: {
-                year: new Date().getFullYear(),
-                month: new Date().getMonth(),
-            },
-            selectedDate: {
-                year: new Date().getFullYear(),
-                month: new Date().getMonth(),
-                day: new Date().getDate(),
-            },
+            today: dateToNum(new Date()),
+            viewDate: dateToNum(new Date()),
+            selectedDate: dateToNum(new Date()),
             todos: [
-                { id: 0, date: {year: 2021, month: 5, day: 24}, text: 'waking up at 6 a.m', checked: true },
-                { id: 1, date: {year: 2021, month: 5, day: 26}, text: 'styling todo list item', checked: false },
-                { id: 2, date: {year: 2021, month: 5, day: 25}, text: 'studying react', checked: false },
+                { id: 0, date: 20210524, text: 'waking up at 6 a.m', checked: true },
+                { id: 1, date: 20210528, text: 'styling todo list item', checked: false },
+                { id: 2, date: 20210528, text: 'implementing a sort algorithm', checked: true },
+                { id: 3, date: 20210525, text: 'studying react', checked: false },
+                { id: 4, date: 20210430, text: 'studying react', checked: false },
+                { id: 5, date: 20210610, text: 'studying react', checked: false },
             ],
         };
     }
 
-    createTodoItem = () => {
-        const { input, todos } = this.state;
-        this.setState({
-            input: '',
-            todos: todos.concat({
-                date: '',
-                text: input,
-                checked: false,
-            }),
-        });
-    }
-
     setViewDate = (nextViewDate) => {
         // check whether currDate can be prevDate
-        const { viewDate } = this.state;
         this.setState({
-            viewDate: {
-                ...viewDate,
-                year: nextViewDate.year,
-                month: nextViewDate.month,
-            }
+            viewDate: nextViewDate
         });
     }
 
     onTileClick = (day) => {
         const { viewDate } = this.state;
         this.setState({
-            selectedDate: {
-                year: viewDate.year,
-                month: viewDate.month,
-                day: day,
-            }
+            selectedDate: parseInt(viewDate / 100) * 100 + day
         });
     }
 
@@ -92,11 +67,13 @@ export default class Calendar extends Component {
 
     handleCreate = () => {
         const { input, selectedDate, todos } = this.state;
+        const createdDate = selectedDate;
+
         this.setState({
             input: '',
             todos: todos.concat({
                 id: this.id++,
-                date: selectedDate,
+                date: createdDate,
                 text: input,
                 checked: false,
             }),
@@ -110,6 +87,10 @@ export default class Calendar extends Component {
     }
 
     render() {
+        const todosInSelectedDate = this.state.todos.filter(
+            (todo) => todo.date === this.state.selectedDate
+        );
+
         return (
             <Container>
                 <Navigation
@@ -121,9 +102,8 @@ export default class Calendar extends Component {
                     todos={this.state.todos}
                     onClick={this.onTileClick}
                 />
-                <TodoItemList
-                    todos={this.state.todos.filter((todo) =>
-                        areObjectsEqual(todo.date, this.state.selectedDate))}
+                <TodoListTemplate
+                    todos={todosInSelectedDate}
                     value={this.state.input}
                     onToggle={this.handleToggle}
                     onChange={this.handleChange}

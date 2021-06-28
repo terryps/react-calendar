@@ -3,18 +3,35 @@ import styled from 'styled-components';
 
 export default class DayTile extends Component {
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return this.props.day !== nextProps.day;
+        const len1 = this.props.todos.texts.length;
+        const len2 = nextProps.todos.texts.length;
+        if(len1 !== len2) {
+            return true;
+        }
+
+        if(len1 && this.props.todos.texts.every((text, index) =>
+            text.localeCompare(nextProps.todos.texts[index]))) {
+            return true;
+        }
+
+        return false;
     }
 
     render() {
         const {
-            day,
+            todos,
             onClick,
         } = this.props;
+
+        const day = todos.day;
+        const textList = todos.texts.map(text =>
+            <div>{text}</div>
+        );
 
         return (
             <Td onClick={() => {onClick(day)}}>
                 <span>{day}</span>
+                { textList }
             </Td>
         )
     };

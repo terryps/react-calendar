@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ymdToNum } from "../../shared/utils";
 
 const Navigation = (props) => {
     const {
@@ -22,38 +23,34 @@ const Navigation = (props) => {
         "December",
     ];
 
-    const y = viewDate.year;
-    const m = viewDate.month;
+    const y = parseInt(viewDate / 10000);
+    const m = parseInt((viewDate % 10000) / 100);
+    console.log(y, m);
 
     const onClickPrev = () => {
-        const nextViewDate = {
-            year: (m === 0) ? y - 1: y,
-            month: (m === 0) ? 11 : m - 1,
-        }
+        const nextViewDate = ymdToNum(
+            (m === 0) ? y - 1: y,
+            (m === 0) ? 11 : m - 1,
+            1
+        );
         setViewDate(nextViewDate);
     }
 
     function onClickPrev2() {
-        const nextViewDate = {
-            year: y - 1,
-            month: m,
-        }
+        const nextViewDate = ymdToNum(y - 1, m, 1)
         setViewDate(nextViewDate);
     }
 
     function onClickNext() {
-        const nextViewDate = {
-            year: (m === 11) ? y + 1 : y,
-            month: (m === 11) ? 0 : m + 1,
-        }
+        const nextViewDate = ymdToNum(
+            (m === 11) ? y + 1 : y,
+            (m === 11) ? 0 : m + 1,
+            1);
         setViewDate(nextViewDate);
     }
 
     function onClickNext2() {
-        const nextViewDate = {
-            year: y + 1,
-            month: m,
-        }
+        const nextViewDate = ymdToNum(y + 1, m, 1);
         setViewDate(nextViewDate);
     }
 
@@ -61,8 +58,8 @@ const Navigation = (props) => {
         <Nav>
             <button onClick={onClickPrev2}>&laquo;</button>
             <button onClick={onClickPrev}>&lsaquo;</button>
-            <Month>{ monthList[viewDate.month] }</Month>
-            <Year>{ viewDate.year }</Year>
+            <Month>{ monthList[m] }</Month>
+            <Year>{ y }</Year>
             <button onClick={onClickNext}>&rsaquo;</button>
             <button onClick={onClickNext2}>&raquo;</button>
         </Nav>
