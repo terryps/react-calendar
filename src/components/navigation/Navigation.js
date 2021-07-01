@@ -25,7 +25,6 @@ const Navigation = (props) => {
 
     const y = parseInt(viewDate / 10000);
     const m = parseInt((viewDate % 10000) / 100);
-    console.log(y, m);
 
     const onClickPrev = () => {
         const nextViewDate = ymdToNum(
@@ -36,12 +35,12 @@ const Navigation = (props) => {
         setViewDate(nextViewDate);
     }
 
-    function onClickPrev2() {
-        const nextViewDate = ymdToNum(y - 1, m, 1)
+    const onClickPrev2 = () => {
+        const nextViewDate = ymdToNum(y - 1, m, 1);
         setViewDate(nextViewDate);
     }
 
-    function onClickNext() {
+    const onClickNext = () => {
         const nextViewDate = ymdToNum(
             (m === 11) ? y + 1 : y,
             (m === 11) ? 0 : m + 1,
@@ -49,19 +48,25 @@ const Navigation = (props) => {
         setViewDate(nextViewDate);
     }
 
-    function onClickNext2() {
+    const onClickNext2 = () => {
         const nextViewDate = ymdToNum(y + 1, m, 1);
         setViewDate(nextViewDate);
     }
 
     return (
         <Nav>
-            <button onClick={onClickPrev2}>&laquo;</button>
-            <button onClick={onClickPrev}>&lsaquo;</button>
-            <Month>{ monthList[m] }</Month>
-            <Year>{ y }</Year>
-            <button onClick={onClickNext}>&rsaquo;</button>
-            <button onClick={onClickNext2}>&raquo;</button>
+            <section>
+                <button onClick={onClickPrev2}>&laquo;</button>
+                <button onClick={onClickPrev}>&lsaquo;</button>
+            </section>
+            <section>
+                <Month>{ monthList[m] }</Month>
+                <Year>{ y }</Year>
+            </section>
+            <section>
+                <button onClick={onClickNext}>&rsaquo;</button>
+                <button onClick={onClickNext2}>&raquo;</button>
+            </section>
         </Nav>
     );
 }
@@ -71,21 +76,24 @@ export default Navigation;
 const Nav = styled.div`
     grid-column: 1/2;
     
+    display: flex;
+    
     font-family: 'Exo';
     font-style: italic;
     font-weight: 900;
+    text-align: center;
     
-    div {
-        display: inline;
-        margin: 0 1rem;
+    section {
+        align-self: center;
     }
     
     button {
         border: none;
-        font-style: italic;
-        font-weight: 900;
-        font-size: 3.2rem;
-        background-color: #fff;
+        font-style: inherit;
+        font-weight: inherit;
+        font-size: 4em;
+        background-color: green;
+        cursor: pointer;
         
         &:hover {
             background-color: red;
@@ -94,9 +102,14 @@ const Nav = styled.div`
 `;
 
 const Month = styled.div`
+    display: inline-block;
+    inline-size: 32rem;
     font-size: 5em;
     text-transform: uppercase;
 `;
+
 const Year = styled.div`
+    display: inline-block;
+    inline-size: 7rem;
     font-size: 3em;
 `;

@@ -1,60 +1,70 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-export default class DayTile extends Component {
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        const len1 = this.props.todos.texts.length;
-        const len2 = nextProps.todos.texts.length;
-        if(len1 !== len2) {
-            return true;
-        }
+const DayTile = (props) => {
+    const {
+        todos,
+        onClick,
+    } = props;
 
-        if(len1 && this.props.todos.texts.every((text, index) =>
-            text.localeCompare(nextProps.todos.texts[index]))) {
-            return true;
-        }
+    const visibleNum = 4;
+    const day = todos.date % 100;
+    const textList = todos.texts.map((text, index) =>
+        (index < visibleNum) ?
+            <Text style={{animationDelay: `${index + 1} * .1s`}}>{text}</Text> :
+            <Text hide >{text}</Text>
+    );
 
-        return false;
-    }
-
-    render() {
-        const {
-            todos,
-            onClick,
-        } = this.props;
-
-        const day = todos.day;
-        const textList = todos.texts.map(text =>
-            <div>{text}</div>
-        );
-
-        return (
-            <Td onClick={() => {onClick(day)}}>
-                <span>{day}</span>
-                { textList }
-            </Td>
-        )
-    };
+    return (
+        <Tile onClick={() => {onClick(todos.date)}}>
+            <span>{day}</span>
+            {textList}
+        </Tile>
+    )
 }
 
-const Td = styled.td`
-    inline-size: 6em;
-    block-size: 6em;
+export default DayTile;
+
+const Tile = styled.td`
+    block-size: 6rem;
     padding: 0;
-    border-right: 0.1em solid #000;
-    border-top: 0.1em solid #000;
-    
+    border-right: 0.1rem solid #000;
+    border-top: 0.1rem solid #000;
+    font-size: 0.8125rem;
+    vertical-align: top;
+    position: relative;
+
     span {
-        float: right;
-        margin: .2em .2em 0 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: .25em .4em 0 0;
     }
     
-    div {
-        inline-size: inherit;
-        padding: .2em .1em;
-        text-align: left;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: no-wrap;
+    &:hover div {
+        animation: show .3s ease-in-out forwards;
+        // &:nth-child(2) {animation-delay: .1s;}
+        // &:nth-child(3) {animation-delay: .2s;}
+    }
+    
+    @keyframes show {
+        100% {
+            font-weight: 500;
+        }
+    }
+`;
+
+const Text = styled.div`
+    padding: 0 .5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    ${props => props.hide && `
+        max-block-size: 0;
+    `}
+    
+    &:nth-child(2) {
+        margin-top: 1.25rem;
     }
 `;

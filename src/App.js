@@ -1,26 +1,40 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import WebFont from 'webfontloader';
-import GlobalStyle from "./styles/GlobalStyle";
+// import GlobalStyle from "./styles/GlobalStyle";
 import Calendar from "./components/calendar/Calendar";
 
-class App extends Component {
-
-    componentDidMount() {
+const App = () => {
+    useEffect(() => {
         WebFont.load({
             google: {
                 families: ["Roboto", "Noto Sans KR", "Exo:900"]
             }
         });
-    }
+    });
 
-    render() {
-        return (
-            <React.Fragment>
-                <GlobalStyle />
-                <Calendar />
-            </React.Fragment>
-        );
-    }
+    return (
+        <Calendar />
+    );
 }
+
+// class App extends Component {
+//
+//     componentDidMount() {
+//         WebFont.load({
+//             google: {
+//                 families: ["Roboto", "Noto Sans KR", "Exo:900"]
+//             }
+//         });
+//     }
+//
+//     render() {
+//         return (
+//             <React.Fragment>
+//                 <GlobalStyle />
+//                 <Calendar />
+//             </React.Fragment>
+//         );
+//     }
+// }
 
 export default App;

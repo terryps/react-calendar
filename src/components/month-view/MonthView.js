@@ -3,9 +3,24 @@ import styled from 'styled-components';
 import DayTile from './DayTile';
 
 export default class MonthView extends Component {
-    // shouldComponentUpdate(nextProps, nextState, nextContext) {
-    //     return this.props.todos !== nextProps.todos;
-    // }
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        if(this.props.viewDate !== nextProps.viewDate) {
+            return true;
+        }
+
+        const len1 = this.props.todos.length;
+        const len2 = nextProps.todos.length;
+        if(len1 !== len2) {
+            return true;
+        }
+
+        if(len1 && this.props.todos.every((todo, index) =>
+                todo.text.localeCompare(nextProps.todos[index].text))) {
+            return true;
+        }
+
+        return false;
+    }
 
     render() {
         const {
@@ -34,15 +49,14 @@ export default class MonthView extends Component {
                 for(let i = 0; i < firstDayOfMonth; i++) {
                     datesInView.push(
                         yearOfPrevMonth * 10000 + prevMonth * 100 + k + i
-                        // {month: m - 1, day: k + i}
                     );
                 }
             }
 
             // push dates in current month
             for(let i = 0; i < lastDateOfMonth; i++) {
-                datesInView.push(y * 10000 + m * 100 + i + 1
-                    // {month: m, day: i + 1}
+                datesInView.push(
+                    y * 10000 + m * 100 + i + 1
                 );
             }
 
@@ -53,8 +67,8 @@ export default class MonthView extends Component {
                 const nextMonth = (m === 11) ? 0 : m + 1;
 
                 for(let i = lastDayOfMonth + 1; i < 7; i++) {
-                    datesInView.push(yearOfNextMonth * 10000 + nextMonth * 100 + k++
-                        // {month: m + 1, day: k++}
+                    datesInView.push(
+                        yearOfNextMonth * 10000 + nextMonth * 100 + k++
                     );
                 }
             }
@@ -78,7 +92,7 @@ export default class MonthView extends Component {
                 const todosInDay = todosInView.filter(todo =>
                     (todo.date === datesInView[i]));
                 todosInWeek.push({
-                    day: datesInView[i] % 100,
+                    date: datesInView[i],
                     texts: todosInDay.map(todo => todo.text)
                 });
                 if (i % 7 === 6){
@@ -94,7 +108,7 @@ export default class MonthView extends Component {
             <tr>
                 {
                     todosInWeek.map(todosInDay =>
-                    <DayTile todos={todosInDay} onClick={onClick}/>)
+                        <DayTile todos={todosInDay} onClick={onClick}/>)
                 }
             </tr>
         );
@@ -115,7 +129,9 @@ const Div = styled.div`
     grid-row: 2/3;
     
     table {
+        table-layout: fixed;
+        inline-size: 100%;
         border-collapse: collapse;
-        border: .1em solid #000;
+        border: .1rem solid #000;
     }
 `;

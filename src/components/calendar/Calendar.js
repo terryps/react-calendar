@@ -8,7 +8,7 @@ import { dateToNum } from "../../shared/utils";
 export default class Calendar extends Component {
     constructor(props) {
         super(props);
-        this.id = 6;
+        this.id = 7;
 
         this.state = {
             input: '',
@@ -16,12 +16,13 @@ export default class Calendar extends Component {
             viewDate: dateToNum(new Date()),
             selectedDate: dateToNum(new Date()),
             todos: [
-                { id: 0, date: 20210524, text: 'waking up at 6 a.m', checked: true },
-                { id: 1, date: 20210528, text: 'styling todo list item', checked: false },
-                { id: 2, date: 20210528, text: 'implementing a sort algorithm', checked: true },
+                { id: 0, date: 20210604, text: 'waking up at 6 a.m', checked: true },
+                { id: 1, date: 20210608, text: 'styling todo list item', checked: false },
+                { id: 2, date: 20210608, text: 'implementing a sort algorithm', checked: true },
                 { id: 3, date: 20210525, text: 'studying react', checked: false },
-                { id: 4, date: 20210430, text: 'studying react', checked: false },
-                { id: 5, date: 20210610, text: 'studying react', checked: false },
+                { id: 4, date: 20210530, text: 'studying redux', checked: false },
+                { id: 5, date: 20210630, text: 'studying react', checked: false },
+                { id: 6, date: 20210701, text: 'studying react', checked: false },
             ],
         };
     }
@@ -33,10 +34,12 @@ export default class Calendar extends Component {
         });
     }
 
-    onTileClick = (day) => {
-        const { viewDate } = this.state;
+    onTileClick = (date) => {
+        const { viewDate, selectedDate } = this.state;
+        const m = parseInt((date % 10000) / 100);
+        const viewMonth = parseInt((viewDate % 10000) / 100);
         this.setState({
-            selectedDate: parseInt(viewDate / 100) * 100 + day
+            selectedDate: (m === viewMonth) ? date : selectedDate
         });
     }
 
@@ -123,7 +126,7 @@ const Container = styled.div`
     
     margin-inline: auto;
     inline-size: 90%;
-    max-inline-size: 60rem;
+    max-inline-size: 70rem;
     
     align-items: center;
     justify-items: center;
