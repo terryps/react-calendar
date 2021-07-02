@@ -126,6 +126,7 @@ const Container = styled.div`
     
     margin-inline: auto;
     inline-size: 90%;
+    min-inline-size: 66rem;
     max-inline-size: 70rem;
     
     align-items: center;

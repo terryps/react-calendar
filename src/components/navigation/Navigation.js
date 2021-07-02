@@ -55,18 +55,18 @@ const Navigation = (props) => {
 
     return (
         <Nav>
-            <section>
-                <button onClick={onClickPrev2}>&laquo;</button>
-                <button onClick={onClickPrev}>&lsaquo;</button>
-            </section>
-            <section>
+            <div>
+                <button onClick={onClickPrev2}><span>&laquo;</span></button>
+                <button onClick={onClickPrev}><span>&lsaquo;</span></button>
+            </div>
+            <div>
                 <Month>{ monthList[m] }</Month>
                 <Year>{ y }</Year>
-            </section>
-            <section>
+            </div>
+            <div>
                 <button onClick={onClickNext}>&rsaquo;</button>
                 <button onClick={onClickNext2}>&raquo;</button>
-            </section>
+            </div>
         </Nav>
     );
 }
@@ -74,42 +74,49 @@ const Navigation = (props) => {
 export default Navigation;
 
 const Nav = styled.div`
-    grid-column: 1/2;
-    
     display: flex;
-    
     font-family: 'Exo';
     font-style: italic;
     font-weight: 900;
     text-align: center;
     
-    section {
+    grid-column: 1/2;
+    justify-self: stretch;
+    justify-content: space-between;
+    
+    & > div {
         align-self: center;
     }
     
     button {
+        inline-size: 1em;
         border: none;
+        background-color: #fff;
         font-style: inherit;
         font-weight: inherit;
-        font-size: 4em;
-        background-color: green;
+        font-size: 4rem;
         cursor: pointer;
         
         &:hover {
-            background-color: red;
+            background-color: #ccc;
+        }
+        
+        span {
+            position: relative;
+            left: -0.1em;
         }
     }
 `;
 
 const Month = styled.div`
     display: inline-block;
-    inline-size: 32rem;
-    font-size: 5em;
+    padding: 0 .1em;
+    font-size: 5rem;
     text-transform: uppercase;
 `;
 
 const Year = styled.div`
     display: inline-block;
-    inline-size: 7rem;
-    font-size: 3em;
+    padding: 0 .1em;
+    font-size: 3rem;
 `;

@@ -11,7 +11,7 @@ const DayTile = (props) => {
     const day = todos.date % 100;
     const textList = todos.texts.map((text, index) =>
         (index < visibleNum) ?
-            <Text style={{animationDelay: `${index + 1} * .1s`}}>{text}</Text> :
+            <Text>{text}</Text> :
             <Text hide >{text}</Text>
     );
 
