@@ -17,7 +17,6 @@ const DayTile = (props) => {
 
     return (
         <Tile onClick={() => {onClick(todos.date)}}>
-            {console.log('tile')}
             <span>{day}</span>
             {textList}
         </Tile>

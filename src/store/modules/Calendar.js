@@ -11,7 +11,7 @@ export const changeViewDate = createAction(CHANGE_VIEW_DATE, date => date);
 export const changeTile = createAction(CHANGE_TILE, date => date);
 export const changeInput = createAction(CHANGE_INPUT, value => value);
 export const toggle = createAction(TOGGLE, id => id);
-export const insert = createAction(INSERT, text => text);
+export const insert = createAction(INSERT, todo => todo);
 
 let id = 0;
 
@@ -27,12 +27,12 @@ const reducer = handleActions({
     [CHANGE_TILE]: (state, action) => state.set('selectedDate', action.payload),
     [CHANGE_INPUT]: (state, action) => state.set('input', action.payload),
     // [TOGGLE]: (state, action) => state.set('id', action.payload),
-    [INSERT]: (state, {payload: text}) => {
+    [INSERT]: (state, {payload: todo}) => {
         const item = Map({
             id: id++,
-            date: 20210605,
+            date: todo.date,
             checked: false,
-            text: text
+            text: todo.text,
         });
 
         return state.update('todos', todos => todos.push(item));

@@ -8,18 +8,18 @@ const TodoListTemplate = (props) => {
         todos,
         selectedDate,
         value,
-        onToggle,
-        onRemove,
+        // onToggle,
         onChange,
         onKeyPress,
     } = props;
+
     return (
         <Div>
             <TodoItemList
                 todos={todos}
                 selectedDate={selectedDate}
-                onToggle={onToggle}
-                onRemove={onRemove}
+                // onToggle={onToggle}
+                // onRemove={onRemove}
             />
             <Form
                 value={value}

@@ -27,7 +27,10 @@ class CalendarContainer extends Component {
 
     handleInsert = () => {
         const { selectedDate, input, CalendarActions } = this.props;
-        CalendarActions.insert(input);
+
+        CalendarActions.insert(
+            {date: selectedDate, text: input}
+        );
         CalendarActions.changeInput('');
     }
 

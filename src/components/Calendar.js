@@ -1,5 +1,4 @@
 import React from 'react';
-import { List, Map } from 'immutable';
 import styled from 'styled-components';
 import Navigation from "components/navigation/Navigation";
 import MonthView from "components/month-view/MonthView"
@@ -17,10 +16,6 @@ const Calendar = (props) => {
         onKeyPress,
     } = props;
 
-    const todosInSelectedDate = todos.filter(
-        todo => todo.date === selectedDate
-    );
-
     return (
         <Container>
             <Navigation
@@ -33,7 +28,7 @@ const Calendar = (props) => {
                 onClick={onClickTile}
             />
             <TodoListTemplate
-                todos={todosInSelectedDate}
+                todos={todos}
                 selectedDate={selectedDate}
                 value={input}
                 // onToggle={this.handleToggle}
