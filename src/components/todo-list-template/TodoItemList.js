@@ -11,7 +11,9 @@ export default class TodoItemList extends Component {
         }
 
         if(len1 && this.props.todos.every((todo, index) =>
-            todo.text.localeCompare(nextProps.todos[index].text))) {
+            todo.text.localeCompare(nextProps.todos[index].text) ||
+            todo.check !== nextProps.todos[index].checked)
+        ) {
             return true;
         }
 
@@ -21,17 +23,23 @@ export default class TodoItemList extends Component {
     render() {
         const {
             todos,
+            selectedDate,
             onToggle,
             onRemove,
         } = this.props;
 
+        const y = parseInt(selectedDate / 10000);
+        const m = parseInt(selectedDate % 10000 / 100);
+        const d = selectedDate % 100;
+        const date = `${m}.${d}.${y}`;
+
         const todoList = todos.map(
             (todo) => (
                 <TodoItem
+                    key={todo.id}
                     {...todo}
                     onToggle={onToggle}
                     onRemove={onRemove}
-                    key={todo.id}
                 />
             )
         );
@@ -40,6 +48,7 @@ export default class TodoItemList extends Component {
             <Div>
                 <Title>
                     <b>Todos</b>
+                    {date}
                 </Title>
                 <div>
                     { todoList }

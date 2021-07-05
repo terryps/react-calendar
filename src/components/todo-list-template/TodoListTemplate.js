@@ -6,9 +6,10 @@ import Form from "./Form";
 const TodoListTemplate = (props) => {
     const {
         todos,
+        selectedDate,
+        value,
         onToggle,
         onRemove,
-        value,
         onChange,
         onKeyPress,
     } = props;
@@ -16,6 +17,7 @@ const TodoListTemplate = (props) => {
         <Div>
             <TodoItemList
                 todos={todos}
+                selectedDate={selectedDate}
                 onToggle={onToggle}
                 onRemove={onRemove}
             />

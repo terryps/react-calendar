@@ -7,6 +7,7 @@ const Form = (props) => {
         onChange,
         onKeyPress,
     } = props;
+
     return (
         <Input
             value={value}

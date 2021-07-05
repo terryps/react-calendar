@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ymdToNum } from "../../shared/utils";
+import { ymdToNum } from "shared/utils";
 
-const Navigation = (props) => {
-    const {
-        viewDate,
-        setViewDate,
-    } = props;
-
+const Navigation = ({viewDate, setViewDate}) => {
     const monthList = [
         "January",
         "February",
