@@ -28,8 +28,7 @@ export default class TodoItem extends Component {
                     </svg>
                 </CheckBox>
                 <Text>{text}</Text>
-                <RemoveButton className="remove"
-                     onClick={() => onRemove(id)}>X</RemoveButton>
+                <RemoveButton onClick={() => onRemove(id)}>X</RemoveButton>
             </Div>
         );
     }

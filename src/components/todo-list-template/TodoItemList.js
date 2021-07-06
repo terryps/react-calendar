@@ -12,8 +12,8 @@ export default class TodoItemList extends Component {
         const {
             todos,
             selectedDate,
-            // onToggle,
-            // onRemove,
+            onToggle,
+            onRemove,
         } = this.props;
 
         const y = parseInt(selectedDate / 10000);
@@ -30,8 +30,8 @@ export default class TodoItemList extends Component {
                         id={id}
                         text={text}
                         checked={checked}
-                        // onToggle={onToggle}
-                        // onRemove={onRemove}
+                        onToggle={onToggle}
+                        onRemove={onRemove}
                     />
                 )
             }

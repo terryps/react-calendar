@@ -12,7 +12,7 @@ const DayTile = (props) => {
     const textList = todos.texts.map((text, index) =>
         (index < visibleNum) ?
             <Text>{text}</Text> :
-            <Text hide >{text}</Text>
+            <Text hide>{text}</Text>
     );
 
     return (

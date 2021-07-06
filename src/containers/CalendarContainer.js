@@ -26,11 +26,9 @@ class CalendarContainer extends Component {
     }
 
     handleInsert = () => {
-        const { selectedDate, input, CalendarActions } = this.props;
+        const { input, CalendarActions } = this.props;
 
-        CalendarActions.insert(
-            {date: selectedDate, text: input}
-        );
+        CalendarActions.insert(input);
         CalendarActions.changeInput('');
     }
 
@@ -40,12 +38,24 @@ class CalendarContainer extends Component {
         }
     }
 
+    handleToggle = (id) => {
+        const { CalendarActions } = this.props;
+        CalendarActions.toggle(id);
+    }
+
+    handleRemove = (id) => {
+        const { CalendarActions } = this.props;
+        CalendarActions.remove(id);
+    }
+
     render() {
         const {
             handleChangeViewDate,
             handleChangeTile,
             handleChangeInput,
             handleKeyPress,
+            handleToggle,
+            handleRemove,
         } = this;
 
         const {
@@ -65,6 +75,8 @@ class CalendarContainer extends Component {
                 onClickTile={handleChangeTile}
                 onChangeInput={handleChangeInput}
                 onKeyPress={handleKeyPress}
+                onToggle={handleToggle}
+                onRemove={handleRemove}
             />
         );
     }

@@ -14,6 +14,8 @@ const Calendar = (props) => {
         onClickTile,
         onChangeInput,
         onKeyPress,
+        onToggle,
+        onRemove,
     } = props;
 
     return (
@@ -31,19 +33,17 @@ const Calendar = (props) => {
                 todos={todos}
                 selectedDate={selectedDate}
                 value={input}
-                // onToggle={this.handleToggle}
                 onChange={onChangeInput}
                 onKeyPress={onKeyPress}
+                onToggle={onToggle}
+                onRemove={onRemove}
             />
         </Container>
     );
 }
 
 export default Calendar;
-//
-// export default class Calendar extends Component {
-//     constructor(props) {
-//         super(props);
+
 //         this.id = 7;
 //
 //         this.state = {
@@ -62,98 +62,7 @@ export default Calendar;
 //             ],
 //         };
 //     }
-//
-//     setViewDate = (nextViewDate) => {
-//         // check whether currDate can be prevDate
-//         this.setState({
-//             viewDate: nextViewDate
-//         });
-//     }
-//
-//     onTileClick = (date) => {
-//         const { viewDate, selectedDate } = this.state;
-//         const m = parseInt((date % 10000) / 100);
-//         const viewMonth = parseInt((viewDate % 10000) / 100);
-//         this.setState({
-//             selectedDate: (m === viewMonth) ? date : selectedDate
-//         });
-//     }
-//
-//     handleToggle = (id) => {
-//         const { todos } = this.state;
-//
-//         const index = todos.findIndex(todo => todo.id === id);
-//         const selected = todos[index];
-//
-//         // copy an array
-//         const nextTodos = [...todos];
-//
-//         nextTodos[index] = {
-//             ...selected,
-//             checked: !selected.checked,
-//         };
-//
-//         this.setState({
-//             todos: nextTodos
-//         });
-//     }
-//
-//     handleChange = (e) => {
-//         this.setState({
-//             input: e.target.value
-//         });
-//     }
-//
-//     handleCreate = () => {
-//         const { input, selectedDate, todos } = this.state;
-//         const createdDate = selectedDate;
-//
-//         this.setState({
-//             input: '',
-//             todos: todos.concat({
-//                 id: this.id++,
-//                 date: createdDate,
-//                 text: input,
-//                 checked: false,
-//             }),
-//         });
-//     }
-//
-//     handleKeyPress = (e) => {
-//         if(e.key === 'Enter') {
-//             this.handleCreate();
-//         }
-//     }
-//
-//     render() {
-//         const todosInSelectedDate = this.state.todos.filter(
-//             (todo) => todo.date === this.state.selectedDate
-//         );
-//
-//         return (
-//             <Container>
-//                 <Navigation
-//                     viewDate={this.state.viewDate}
-//                     setViewDate={this.setViewDate}
-//                 />
-//                 <MonthView
-//                     viewDate={this.state.viewDate}
-//                     todos={this.state.todos}
-//                     onClick={this.onTileClick}
-//                 />
-//                 <TodoListTemplate
-//                     todos={todosInSelectedDate}
-//                     selectedDate={this.state.selectedDate}
-//                     value={this.state.input}
-//                     onToggle={this.handleToggle}
-//                     onChange={this.handleChange}
-//                     onKeyPress={this.handleKeyPress}
-//                 />
-//             </Container>
-//         );
-//     }
-// }
-//
+
 const Container = styled.div`
     display: grid;
     align-content: start;

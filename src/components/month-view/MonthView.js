@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
+import { is } from 'immutable';
 import styled from 'styled-components';
 import DayTile from './DayTile';
 
 export default class MonthView extends Component {
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        if(this.props.viewDate !== nextProps.viewDate) {
-            return true;
-        }
-
-        const len1 = this.props.todos.length;
-        const len2 = nextProps.todos.length;
-        if(len1 !== len2) {
-            return true;
-        }
-
-        if(len1 && this.props.todos.every((todo, index) =>
-                todo.text.localeCompare(nextProps.todos[index].text))) {
-            return true;
-        }
-
-        return false;
+        return (this.props.viewDate !== nextProps.viewDate) ||
+            (!is(this.todos, nextProps.todos));
     }
 
     render() {
@@ -81,7 +68,7 @@ export default class MonthView extends Component {
             const firstDate = datesInView[0];
             const lastDate = datesInView[datesInView.length - 1];
 
-            let todosInView = todos.filter((todo) =>
+            let todosInView = todos.toJS().filter((todo) =>
                     todo.date >= firstDate && todo.date <= lastDate
             );
 
@@ -89,13 +76,16 @@ export default class MonthView extends Component {
 
             let todosInWeek = [];
             for(let i = 0; i < datesInView.length; i++) {
-                const todosInDay = todosInView.filter(todo =>
-                    (todo.date === datesInView[i]));
+                const todosInDay = todosInView.filter(
+                    todo => (todo.date === datesInView[i])
+                );
+
                 todosInWeek.push({
                     date: datesInView[i],
                     texts: todosInDay.map(todo => todo.text)
                 });
-                if (i % 7 === 6){
+
+                if (i % 7 === 6) {
                     todoList.push(todosInWeek);
                     todosInWeek = [];
                 }
