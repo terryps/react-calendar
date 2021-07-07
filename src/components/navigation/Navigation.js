@@ -70,9 +70,9 @@ export default Navigation;
 
 const Nav = styled.div`
     display: flex;
-    font-family: 'Exo';
-    font-style: italic;
+    font-family: Exo;
     font-weight: 900;
+    font-style: italic;
     text-align: center;
     
     grid-column: 1/2;
@@ -84,12 +84,12 @@ const Nav = styled.div`
     }
     
     button {
-        inline-size: 1em;
+        inline-size: calc(1.5vw + 1em);
         border: none;
         background-color: #fff;
         font-style: inherit;
         font-weight: inherit;
-        font-size: 4rem;
+        font-size: calc(2vw + 1rem);
         cursor: pointer;
         
         &:hover {
@@ -105,13 +105,13 @@ const Nav = styled.div`
 
 const Month = styled.div`
     display: inline-block;
-    padding: 0 .1em;
-    font-size: 5rem;
+    padding: 0 .25rem;
+    font-size: 4vw;
     text-transform: uppercase;
 `;
 
 const Year = styled.div`
     display: inline-block;
-    padding: 0 .1em;
-    font-size: 3rem;
+    padding: 0 .25rem;
+    font-size: 2vw;
 `;

@@ -28,12 +28,12 @@ export default DayTile;
 const Tile = styled.td`
     block-size: 6rem;
     padding: 0;
-    border-right: 0.1rem solid #000;
-    border-top: 0.1rem solid #000;
-    font-size: 0.8125rem;
+    border: 0.1rem solid #000;
+    font: 0.8125rem inherit;
+    
     vertical-align: top;
     position: relative;
-
+    
     span {
         position: absolute;
         top: 0;

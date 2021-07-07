@@ -16,6 +16,16 @@ export default class MonthView extends Component {
             onClick,
         } = this.props;
 
+        const dayList = [
+            "SUN",
+            "MON",
+            "TUE",
+            "WED",
+            "THU",
+            "FRI",
+            "SAT"
+        ];
+
         const datesInView = (() => {
             const y = parseInt(viewDate / 10000);
             const m = parseInt((viewDate % 10000) / 100);
@@ -107,6 +117,9 @@ export default class MonthView extends Component {
             <Div>
                 <table>
                     <tbody>
+                    <tr>
+                        { dayList.map(day => <th>{day}</th>)}
+                    </tr>
                     { dayTiles }
                     </tbody>
                 </table>
@@ -122,6 +135,9 @@ const Div = styled.div`
         table-layout: fixed;
         inline-size: 100%;
         border-collapse: collapse;
-        border: .1rem solid #000;
+    }
+    
+    th {
+        padding: .5rem 0;
     }
 `;
