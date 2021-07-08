@@ -3,21 +3,22 @@ import styled from 'styled-components';
 
 const DayTile = (props) => {
     const {
+        selected,
         todos,
         onClick,
     } = props;
 
-    const visibleNum = 4;
+    const visibleNum = 6;
     const day = todos.date % 100;
     const textList = todos.texts.map((text, index) =>
         (index < visibleNum) ?
-            <Text>{text}</Text> :
-            <Text hide>{text}</Text>
+            <div>{text}</div> :
+            <Hide>{text}</Hide>
     );
 
     return (
         <Tile onClick={() => {onClick(todos.date)}}>
-            <span>{day}</span>
+            <Span selected={selected}>{day}</Span>
             {textList}
         </Tile>
     )
@@ -26,10 +27,9 @@ const DayTile = (props) => {
 export default DayTile;
 
 const Tile = styled.td`
-    block-size: 6rem;
+    block-size: 6.05rem;
     padding: 0;
     border: 0.1rem solid #000;
-    font: 0.8125rem inherit;
     
     vertical-align: top;
     position: relative;
@@ -39,32 +39,37 @@ const Tile = styled.td`
         top: 0;
         right: 0;
         margin: .25em .4em 0 0;
+        padding: 0 .25em;
+        font: 0.8125rem inherit;
     }
     
-    &:hover div {
-        animation: show .3s ease-in-out forwards;
-        // &:nth-child(2) {animation-delay: .1s;}
-        // &:nth-child(3) {animation-delay: .2s;}
-    }
-    
-    @keyframes show {
-        100% {
-            font-weight: 500;
+    div {
+        padding: 0 .5rem;
+        overflow: hidden;
+        font-size: 0.75rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: .3s ease-in-out;
+        
+        &:nth-child(2) {
+            margin-top: 1.25rem;
         }
     }
 `;
 
-const Text = styled.div`
-    padding: 0 .5em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    
-    ${props => props.hide && `
-        max-block-size: 0;
+const Span = styled.span`
+    ${({selected}) => selected && `
+        background-color: blue;
+        color: #fff;
     `}
+`;
+
+const Hide = styled.div`
+    max-block-size: 0;
+    opacity: 0;
     
-    &:nth-child(2) {
-        margin-top: 1.25rem;
+    ${Tile}:hover & {
+        max-block-size: 1em;
+        opacity: 1;
     }
 `;

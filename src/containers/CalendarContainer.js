@@ -28,8 +28,10 @@ class CalendarContainer extends Component {
     handleInsert = () => {
         const { input, CalendarActions } = this.props;
 
-        CalendarActions.insert(input);
-        CalendarActions.changeInput('');
+        if(input.length) {
+            CalendarActions.insert(input);
+            CalendarActions.changeInput('');
+        }
     }
 
     handleKeyPress = (e) => {

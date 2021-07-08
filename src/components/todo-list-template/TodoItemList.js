@@ -17,7 +17,7 @@ export default class TodoItemList extends Component {
         } = this.props;
 
         const y = parseInt(selectedDate / 10000);
-        const m = parseInt(selectedDate % 10000 / 100);
+        const m = parseInt(selectedDate % 10000 / 100) + 1;
         const d = selectedDate % 100;
         const date = `${m}.${d}.${y}`;
 
@@ -40,8 +40,8 @@ export default class TodoItemList extends Component {
         return (
             <Div>
                 <Title>
-                    <b>Todos</b>
-                    {date}
+                    <span>Todos</span>
+                    <span>{date}</span>
                 </Title>
                 <div>
                     { todoList }
@@ -56,7 +56,13 @@ const Div = styled.div`
 `;
 
 const Title = styled.div`
+    display: flex;
+    justify-content: space-between;
     margin: 0;
-    padding-block: 0 1em;
+    padding-bottom: .525rem;
     border-bottom: .05em solid #000;
+    
+    span {
+        font-weight: 600;
+    }
 `;

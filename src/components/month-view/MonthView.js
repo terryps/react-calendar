@@ -12,6 +12,7 @@ export default class MonthView extends Component {
     render() {
         const {
             viewDate,
+            selectedDate,
             todos,
             onClick,
         } = this.props;
@@ -107,8 +108,10 @@ export default class MonthView extends Component {
         const dayTiles = todoList.map(todosInWeek =>
             <tr>
                 {
-                    todosInWeek.map(todosInDay =>
-                        <DayTile todos={todosInDay} onClick={onClick}/>)
+                    todosInWeek.map(todosInDay => {
+                        const selected = (todosInDay.date === selectedDate);
+                        return (<DayTile selected={selected} todos={todosInDay} onClick={onClick}/>);
+                    })
                 }
             </tr>
         );
@@ -138,6 +141,6 @@ const Div = styled.div`
     }
     
     th {
-        padding: .5rem 0;
+        padding-bottom: .5rem;
     }
 `;

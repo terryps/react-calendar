@@ -20,7 +20,7 @@ const Form = (props) => {
 export default Form;
 
 const Input = styled.input`
-    margin: 0.9em 0 0;
+    margin: .75rem 0 0;
     padding: 0;
     height: 2em;
     border: none;

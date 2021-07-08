@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import GlobalStyles from "styles/GlobalStyle";
 import Navigation from "components/navigation/Navigation";
 import MonthView from "components/month-view/MonthView"
 import TodoListTemplate from "components/todo-list-template/TodoListTemplate";
@@ -20,12 +21,14 @@ const Calendar = (props) => {
 
     return (
         <Container>
+            <GlobalStyles />
             <Navigation
                 viewDate={viewDate}
                 setViewDate={onChangeViewDate}
             />
             <MonthView
                 viewDate={viewDate}
+                selectedDate={selectedDate}
                 todos={todos}
                 onClick={onClickTile}
             />

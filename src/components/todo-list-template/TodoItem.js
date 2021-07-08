@@ -51,7 +51,7 @@ const CheckBox = styled.div`
     svg {
         display: block;
         position: absolute;
-        top: calc(50% - 0.5em);
+        top: 0.3rem;
         left: 0.35em;
         max-inline-size: 0.8em;
         max-block-size: 0.95em;
@@ -64,10 +64,19 @@ const CheckBox = styled.div`
 `;
 
 const Text = styled.div`
+    flex: 1;
+    
     word-break: break-all;
     line-height: 1.5;
 `;
 
 const RemoveButton = styled.div`
+    padding: 0 .4rem;
+    block-size: fit-content;
+    font-weight: 600;
     line-height: 1.5;
+    
+    &:hover {
+        background-color: #ddd;
+    }
 `;
