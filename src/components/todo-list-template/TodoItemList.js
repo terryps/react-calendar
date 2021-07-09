@@ -43,9 +43,9 @@ export default class TodoItemList extends Component {
                     <span>Todos</span>
                     <span>{date}</span>
                 </Title>
-                <div>
+                <TodosWrapper>
                     { todoList }
-                </div>
+                </TodosWrapper>
             </Div>
         );
     }
@@ -65,4 +65,9 @@ const Title = styled.div`
     span {
         font-weight: 600;
     }
+`;
+
+const TodosWrapper = styled.div`
+    max-block-size: 30rem;
+    overflow: auto;
 `;

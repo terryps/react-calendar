@@ -133,6 +133,7 @@ export default class MonthView extends Component {
 
 const Div = styled.div`
     grid-row: 2/3;
+    align-self: start;
     
     table {
         table-layout: fixed;

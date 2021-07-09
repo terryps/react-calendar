@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List } from 'immutable';
+import { dateToNum } from "shared/utils";
 
 const CHANGE_VIEW_DATE = 'CHANGE_VIEW_DATE';
 const CHANGE_TILE = 'CLICK_TILE';
@@ -19,8 +20,8 @@ let id = 0;
 
 const initialState = Map({
     input: '',
-    viewDate: 20210605,
-    selectedDate: 20210605,
+    viewDate: dateToNum(new Date()),
+    selectedDate: dateToNum(new Date()),
     todos: List(),
 });
 
