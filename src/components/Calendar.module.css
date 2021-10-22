@@ -1,0 +1,17 @@
+.container {
+    width: 1080px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 1080px) {
+    .container {
+        width: 980px;
+    }
+}

@@ -1,0 +1,13 @@
+.table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 800px;
+}
+
+.th {
+    padding-bottom: .5rem;
+}
+
+@media (max-width: 1080px) {
+    .table { width: 700px; }
+}

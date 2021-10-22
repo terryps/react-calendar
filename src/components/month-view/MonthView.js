@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { is } from 'immutable';
-import styled from 'styled-components';
 import DayTile from './DayTile';
+import styles from './MonthView.module.css';
 
 export default class MonthView extends Component {
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -93,7 +93,7 @@ export default class MonthView extends Component {
 
                 todosInWeek.push({
                     date: datesInView[i],
-                    texts: todosInDay.map(todo => todo.text)
+                    details: todosInDay.map(todo => ({text: todo.text, done: todo.checked}))
                 });
 
                 if (i % 7 === 6) {
@@ -117,31 +117,20 @@ export default class MonthView extends Component {
         );
 
         return (
-            <Div>
-                <table>
+            <div>
+                <table className={styles.table}>
                     <tbody>
                     <tr>
-                        { dayList.map(day => <th>{day}</th>)}
+                        { dayList.map(day =>
+                            <th className={styles.th}>
+                                {day}
+                            </th>
+                        )}
                     </tr>
                     { dayTiles }
                     </tbody>
                 </table>
-            </Div>
+            </div>
         );
     }
 }
-
-const Div = styled.div`
-    grid-row: 2/3;
-    align-self: start;
-    
-    table {
-        table-layout: fixed;
-        inline-size: 100%;
-        border-collapse: collapse;
-    }
-    
-    th {
-        padding-bottom: .5rem;
-    }
-`;

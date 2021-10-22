@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styles from './Navigation.module.css';
 import { ymdToNum } from "shared/utils";
 
 const Navigation = ({viewDate, setViewDate}) => {
@@ -49,69 +49,21 @@ const Navigation = ({viewDate, setViewDate}) => {
     }
 
     return (
-        <Nav>
-            <div>
-                <button onClick={onClickPrev2}><span>&laquo;</span></button>
-                <button onClick={onClickPrev}><span>&lsaquo;</span></button>
+        <div className={styles.nav}>
+            <div className={`${styles.navItems} ${styles.btns}`}>
+                <button onClick={onClickPrev2}>&laquo;</button>
+                <button onClick={onClickPrev}>&lsaquo;</button>
             </div>
-            <div>
-                <Month>{ monthList[m] }</Month>
-                <Year>{ y }</Year>
+            <div className={styles.navItems}>
+                <div className={styles.month}>{ monthList[m] }</div>
+                <div className={styles.year}>{ y }</div>
             </div>
-            <div>
+            <div className={`${styles.navItems} ${styles.btns}`}>
                 <button onClick={onClickNext}>&rsaquo;</button>
                 <button onClick={onClickNext2}>&raquo;</button>
             </div>
-        </Nav>
+        </div>
     );
 }
 
 export default Navigation;
-
-const Nav = styled.div`
-    display: flex;
-    font-family: Exo;
-    font-weight: 900;
-    font-style: italic;
-    text-align: center;
-    
-    grid-column: 1/2;
-    justify-self: stretch;
-    justify-content: space-between;
-    
-    & > div {
-        align-self: center;
-    }
-    
-    button {
-        inline-size: calc(1.5vw + 1em);
-        border: none;
-        background-color: #fff;
-        font-style: inherit;
-        font-weight: inherit;
-        font-size: calc(2vw + 1rem);
-        cursor: pointer;
-        
-        &:hover {
-            background-color: #ccc;
-        }
-        
-        span {
-            position: relative;
-            left: -0.1em;
-        }
-    }
-`;
-
-const Month = styled.div`
-    display: inline-block;
-    padding: 0 .25rem;
-    font-size: 4vw;
-    text-transform: uppercase;
-`;
-
-const Year = styled.div`
-    display: inline-block;
-    padding: 0 .25rem;
-    font-size: 2vw;
-`;

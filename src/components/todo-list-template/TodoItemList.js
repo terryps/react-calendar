@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { is } from 'immutable';
-import styled from 'styled-components';
+import styles from './Todo.module.css';
 import TodoItem from "./TodoItem";
 
 export default class TodoItemList extends Component {
@@ -38,36 +38,15 @@ export default class TodoItemList extends Component {
         );
 
         return (
-            <Div>
-                <Title>
+            <div className={styles.todoList}>
+                <div className={styles.title}>
                     <span>Todos</span>
                     <span>{date}</span>
-                </Title>
-                <TodosWrapper>
+                </div>
+                <div className={styles.listWrapper}>
                     { todoList }
-                </TodosWrapper>
-            </Div>
+                </div>
+            </div>
         );
     }
 }
-
-const Div = styled.div`
-    max-inline-size: 10em;
-`;
-
-const Title = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-    padding-bottom: .525rem;
-    border-bottom: .05em solid #000;
-    
-    span {
-        font-weight: 600;
-    }
-`;
-
-const TodosWrapper = styled.div`
-    max-block-size: 30rem;
-    overflow: auto;
-`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styles from './Todo.module.css';
 
 const Form = (props) => {
     const {
@@ -9,7 +9,8 @@ const Form = (props) => {
     } = props;
 
     return (
-        <Input
+        <input
+            className={styles.input}
             value={value}
             onChange={onChange}
             onKeyPress={onKeyPress}
@@ -18,12 +19,3 @@ const Form = (props) => {
 }
 
 export default Form;
-
-const Input = styled.input`
-    margin: .75rem 0 0;
-    padding: 0;
-    height: 2em;
-    border: none;
-    outline: none;
-    background-color: #ddd;
-`;
