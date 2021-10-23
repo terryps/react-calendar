@@ -19,7 +19,7 @@
 .p {
     font-size: 12px;
     line-height: 1.5;
-
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -29,4 +29,8 @@
 .selected {
     background-color: #0000ff;
     color: #ffffff;
+}
+
+@media (max-width: 618px) {
+    .tile { height: calc(8vw + 48px); }
 }

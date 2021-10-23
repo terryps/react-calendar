@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoItemList from "./TodoItemList";
 import Form from "./Form";
+import styles from './Todo.module.css';
 
 const TodoListTemplate = (props) => {
     const {
@@ -14,7 +15,7 @@ const TodoListTemplate = (props) => {
     } = props;
 
     return (
-        <div>
+        <div className={styles.todoContainer}>
             <TodoItemList
                 todos={todos}
                 selectedDate={selectedDate}

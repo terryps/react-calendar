@@ -8,6 +8,6 @@
     padding-bottom: .5rem;
 }
 
-@media (max-width: 1080px) {
-    .table { width: 700px; }
+@media (max-width: 1096px) {
+    .table { width: 100%; }
 }

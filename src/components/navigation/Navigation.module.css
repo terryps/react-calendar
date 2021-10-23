@@ -1,7 +1,7 @@
 .nav {
     display: table;
     width: 80%;
-    margin: 48px auto 48px;
+    margin: 48px auto;
     font: italic 900 56px Exo;
     text-align: center;
 }
@@ -29,6 +29,35 @@
 }
 .month {
     display: inline-block;
-    padding: 0 10px;
+    padding-left: 10px;
     text-transform: uppercase;
+}
+
+@media (max-width: 1096px) {
+    .nav { font-size: 48px; }
+    .btns button { width: 56px;font-size: 48px; }
+}
+
+@media (max-width: 860px) {
+    .nav { font-size: 36px; }
+    .year { font-size: 24px; }
+    .btns button { width: 42px;font-size: 36px; }
+}
+
+@media (max-width: 618px) {
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 32px;
+        font-size: calc(2vw + 12px);
+        width: 90%;
+    }
+    .month { padding: 0; }
+    .year { padding-right: 0;font-size: calc(2vw + 12px); }
+    .btns button { width: calc(6vw + 6px);font-size: calc(3vw + 18px); }
+}
+
+@media (max-width: 360px) {
+    .nav { width: 96%; }
 }

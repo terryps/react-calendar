@@ -7,7 +7,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  overflow: scroll;
+  font-size: 16px;
+  overflow: auto;
 }
 
 code {
@@ -15,15 +16,14 @@ code {
     monospace;
 }
 
-body::-webkit-scrollbar { width: 7px; }
-body::-webkit-scrollbar-track { background: transparent; }
-body::-webkit-scrollbar-thumb { background: #333; }
-body::-webkit-scrollbar:horizontal { height: 7px; }
-
 * {
     margin: 0;padding: 0;
 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+@media (max-width: 618px) {
+    body { font-size: 12px; }
 }
